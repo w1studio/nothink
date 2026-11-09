@@ -86,7 +86,7 @@
       <p>If this policy changes, the new version will appear on this page with a new date. Questions: <a href="mailto:wag1dsgn@gmail.com">wag1dsgn@gmail.com</a>.</p>
     </section>
 
-    <h1 id="support">Support</h1>
+    <h1 class="support">Support</h1>
     <section class="card">
       <h3>How do I add the widget?</h3>
       <p>Touch and hold the Home Screen, tap Edit → Add Widget, find nothink. and pick a size. To show a different language, touch and hold the widget → Edit Widget.</p>
@@ -137,7 +137,7 @@
       <p>Si esta política cambia, la nueva versión aparecerá en esta página con otra fecha. Preguntas: <a href="mailto:wag1dsgn@gmail.com">wag1dsgn@gmail.com</a>.</p>
     </section>
 
-    <h1>Ayuda</h1>
+    <h1 class="support">Ayuda</h1>
     <section class="card">
       <h3>¿Cómo agrego el widget?</h3>
       <p>Mantén presionada la pantalla de inicio, toca Editar → Agregar widget, busca nothink. y elige un tamaño. Para ver otro idioma, mantén presionado el widget → Editar widget.</p>
@@ -188,7 +188,7 @@
       <p>Если политика изменится, новая версия появится на этой странице с новой датой. Вопросы: <a href="mailto:wag1dsgn@gmail.com">wag1dsgn@gmail.com</a>.</p>
     </section>
 
-    <h1>Поддержка</h1>
+    <h1 class="support">Поддержка</h1>
     <section class="card">
       <h3>Как поставить виджет?</h3>
       <p>Зажмите экран «Домой», нажмите «Изменить» → «Добавить виджет», найдите nothink. и выберите размер. Чтобы показать другой язык, зажмите виджет → «Изменить виджет».</p>
@@ -218,7 +218,12 @@
     // ?lang=es from the app, then the browser's language, then English.
     var asked = new URLSearchParams(location.search).get("lang");
     var browser = (navigator.language || "en").slice(0, 2);
-    set(langs.indexOf(asked) >= 0 ? asked : langs.indexOf(browser) >= 0 ? browser : "en");
+    var lang = langs.indexOf(asked) >= 0 ? asked : langs.indexOf(browser) >= 0 ? browser : "en";
+    set(lang);
+    // #support is the App Store support link: jump to the support part of the shown language.
+    if (location.hash === "#support") {
+      document.querySelector('[data-lang="' + lang + '"] .support').scrollIntoView();
+    }
     document.querySelectorAll("nav button").forEach(function (b) {
       b.addEventListener("click", function () { set(b.getAttribute("data-set")); });
     });
